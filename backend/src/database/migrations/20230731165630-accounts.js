@@ -18,13 +18,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      cpf: {
-        allowNull: true,
-        type: Sequelize.NUMBER,
-      },
-      cnpj: {
-        allowNull: true,
-        type: Sequelize.NUMBER,
+      document: {
+        allowNull: false,
+        type: Sequelize.STRING,
       },
       status: {
         allowNull: false,
