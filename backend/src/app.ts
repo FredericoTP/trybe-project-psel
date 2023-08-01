@@ -1,5 +1,5 @@
 import express, { Response, Request, NextFunction } from 'express';
-import { BadRequest, Unauthorized } from './utils/errors';
+import { BadRequest, Unauthorized, Conflict } from './utils/errors';
 import { loginRouter, accountRouter } from './routers';
 
 const app = express();
@@ -12,12 +12,16 @@ app.use('/login', loginRouter);
 
 app.use('/account', accountRouter);
 
-app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
+app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   if (err instanceof BadRequest) {
     return res.status(err.statusCode).json({ message: err.message });
   }
 
   if (err instanceof Unauthorized) {
+    return res.status(err.statusCode).json({ message: err.message });
+  }
+
+  if (err instanceof Conflict) {
     return res.status(err.statusCode).json({ message: err.message });
   }
 

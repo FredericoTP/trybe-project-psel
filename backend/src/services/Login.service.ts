@@ -1,26 +1,33 @@
+import { ModelStatic, Op } from 'sequelize';
 import AccountModel from '../database/models/AccountModel';
-import { AccountInfo } from '../interfaces';
+import { AccountInfo, ILoginService } from '../interfaces';
 import JwtToken from '../utils/auth';
 import { Unauthorized } from '../utils/errors';
 import { validateLogin } from './validations/validationInputValues';
 
 const auth = new JwtToken();
 
-class LoginService {
-  public static async login(accountInfo: AccountInfo): Promise<string> {
+class LoginService implements ILoginService {
+  private accountModel: ModelStatic<AccountModel> = AccountModel;
+
+  public async login(accountInfo: AccountInfo): Promise<string> {
     const { document, password } = accountInfo;
 
     validateLogin(accountInfo);
 
-    const account = await AccountModel.findOne({
-      where: { document },
-    });
+    const account = await this.accountModel.findOne(
+      {
+        where: {
+          [Op.and]: [{ password }, { document }],
+        },
+      },
+    );
 
     if (!account) throw new Unauthorized('Invalid email or password');
 
-    if (account.password !== password) throw new Unauthorized('Invalid email or password');
+    const { name, email } = account.dataValues;
 
-    const token = auth.generateToken({ name: account.name, email: account.email });
+    const token = auth.generateToken({ name, email });
 
     return token;
   }
