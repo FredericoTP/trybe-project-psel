@@ -10,5 +10,12 @@
     "parserOptions": {
         "project": "./tsconfig.json"
     },
-    "rules": {}
+    "rules": {
+        "@typescript-eslint/no-unused-vars": [
+            "warn",
+            {
+                "argsIgnorePattern": "^_"
+            }
+        ]
+    }
 }

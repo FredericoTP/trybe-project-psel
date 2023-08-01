@@ -8,11 +8,11 @@ class AccountModel extends Model {
 
   declare name: string;
 
+  declare email: string;
+
   declare password: string;
 
-  declare cpf: number;
-
-  declare cnpj: number;
+  declare document: string;
 
   declare status: boolean;
 }
@@ -25,6 +25,10 @@ AccountModel.init({
     type: INTEGER,
   },
   name: {
+    allowNull: false,
+    type: STRING,
+  },
+  email: {
     allowNull: false,
     type: STRING,
   },
