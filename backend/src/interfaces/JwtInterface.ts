@@ -2,7 +2,7 @@ import { JwtPayload } from 'jsonwebtoken';
 
 interface JwtInterface {
   generateToken(payload: JwtObject): string;
-  validateToken(token: string) : string | JwtPayload;
+  validateToken(token: string): string | JwtPayload;
 }
 
 interface JwtObject {

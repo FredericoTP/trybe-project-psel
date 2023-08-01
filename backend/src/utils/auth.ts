@@ -1,5 +1,5 @@
 import jwt = require('jsonwebtoken');
-import { SignOptions } from 'jsonwebtoken';
+import { SignOptions, JwtPayload } from 'jsonwebtoken';
 import { JwtObject, JwtInterface } from '../interfaces';
 
 class JwtToken implements JwtInterface {
@@ -21,7 +21,7 @@ class JwtToken implements JwtInterface {
     return token;
   }
 
-  validateToken(token: string) {
+  validateToken(token: string): string | JwtPayload {
     const isValid = jwt.verify(token, this.secretKey);
 
     return isValid;

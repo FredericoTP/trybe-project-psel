@@ -1,4 +1,13 @@
 import { JwtInterface, JwtObject } from './JwtInterface';
-import { AccountInfo } from './AccountInterface';
+import {
+  AccountInfo, IAccount, IAccountService, IAccountController,
+} from './AccountInterface';
 
-export { JwtInterface, JwtObject, AccountInfo };
+export {
+  JwtInterface,
+  JwtObject,
+  AccountInfo,
+  IAccount,
+  IAccountService,
+  IAccountController,
+};

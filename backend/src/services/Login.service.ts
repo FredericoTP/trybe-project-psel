@@ -7,7 +7,7 @@ import { validateLogin } from './validations/validationInputValues';
 const auth = new JwtToken();
 
 class LoginService {
-  public static async login(accountInfo: AccountInfo) {
+  public static async login(accountInfo: AccountInfo): Promise<string> {
     const { document, password } = accountInfo;
 
     validateLogin(accountInfo);
