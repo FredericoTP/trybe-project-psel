@@ -1,6 +1,11 @@
 import { JwtInterface, JwtObject } from './JwtInterface';
 import {
-  AccountInfo, IAccount, IAccountService, IAccountController,
+  AccountInfo,
+  IAccount,
+  IAccountService,
+  IAccountController,
+  IBodyAccount,
+  IAccountUpdate,
 } from './AccountInterface';
 import { ILoginService, ILoginController } from './LoginInterface';
 
@@ -13,4 +18,6 @@ export {
   IAccountController,
   ILoginService,
   ILoginController,
+  IBodyAccount,
+  IAccountUpdate,
 };

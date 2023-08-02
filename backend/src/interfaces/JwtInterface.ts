@@ -6,6 +6,7 @@ interface JwtInterface {
 }
 
 interface JwtObject {
+  id: number;
   name: string;
   email: string;
 }

@@ -1,5 +1,8 @@
 import * as Joi from 'joi';
-import { StringSchema, ObjectSchema } from 'joi';
+import { StringSchema, ObjectSchema, NumberSchema } from 'joi';
+import validator from 'cpf-cnpj-validator';
+
+const JoiExtends = require('joi').extend(validator);
 
 const customMessage = (fieldName: string, min: number, type: string) => ({
   'string.base': `${fieldName} should be a type of ${type}`,
@@ -9,6 +12,8 @@ const customMessage = (fieldName: string, min: number, type: string) => ({
   'any.required': `${fieldName} is a required field`,
 });
 
+const idSchema: NumberSchema = Joi.number().required().messages(customMessage('id', 5, 'number'));
+
 const documentSchema: StringSchema = Joi.string().required().messages(customMessage('document', 5, 'string'));
 
 const passwordSchema: StringSchema = Joi.string().required().messages(customMessage('password', 5, 'string'));
@@ -16,6 +21,10 @@ const passwordSchema: StringSchema = Joi.string().required().messages(customMess
 const emailSchema: StringSchema = Joi.string().email().required().messages(customMessage('email', 5, 'string'));
 
 const nameSchema: StringSchema = Joi.string().required().messages(customMessage('name', 5, 'string'));
+
+const cnpjSchema = JoiExtends.document().cnpj();
+
+const cpfSchema = JoiExtends.document().cpf();
 
 const loginSchema: ObjectSchema = Joi.object({
   document: documentSchema,
@@ -29,6 +38,12 @@ const accountSchema: ObjectSchema = Joi.object({
   document: documentSchema,
 });
 
+const updateSchema: ObjectSchema = Joi.object({
+  id: idSchema,
+  name: nameSchema,
+  email: emailSchema,
+});
+
 export {
-  documentSchema, passwordSchema, loginSchema, accountSchema,
+  documentSchema, passwordSchema, loginSchema, accountSchema, cnpjSchema, cpfSchema, updateSchema,
 };

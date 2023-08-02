@@ -23,11 +23,13 @@ class LoginService implements ILoginService {
       },
     );
 
-    if (!account) throw new Unauthorized('Invalid email or password');
+    if (!account) throw new Unauthorized('Invalid document or password');
 
-    const { name, email } = account.dataValues;
+    if (!account.dataValues.status) throw new Unauthorized('Invalid document or password');
 
-    const token = auth.generateToken({ name, email });
+    const { id, name, email } = account.dataValues;
+
+    const token = auth.generateToken({ id, name, email });
 
     return token;
   }
