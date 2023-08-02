@@ -12,4 +12,5 @@ transactionRouter.get('/', validateToken, (req: Request, res: Response) => trans
 
 transactionRouter.post('/', validateToken, (req: Request, res: Response) => transactionController.create(req, res));
 
+transactionRouter.patch('/', validateToken, (req: Request, res: Response) => transactionController.addCashbackRate(req, res));
 export default transactionRouter;

@@ -9,7 +9,7 @@ import {
 } from './AccountInterface';
 import { ILoginService, ILoginController } from './LoginInterface';
 import {
-  ITransactionService, ITransactionController, ITransactionInfo, IBodyTransaction,
+  ITransactionService, ITransactionController, ITransactionInfo, IBodyTransaction, ICashback,
 } from './TransactionInterface';
 
 export {
@@ -27,4 +27,5 @@ export {
   ITransactionController,
   ITransactionInfo,
   IBodyTransaction,
+  ICashback,
 };

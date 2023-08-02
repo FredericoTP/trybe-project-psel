@@ -1,9 +1,10 @@
 import { ModelStatic, literal } from 'sequelize';
 import TransactionModel from '../database/models/TransactionModel';
 import AccountModel from '../database/models/AccountModel';
-import { ITransactionInfo, ITransactionService } from '../interfaces';
+import { ICashback, ITransactionInfo, ITransactionService } from '../interfaces';
 import generateId from '../utils/generateTransactionId';
 import { validateTransaction } from './validations/validationInputValues';
+import { NotFound } from '../utils/errors';
 
 class TransactionService implements ITransactionService {
   private transactionModel: ModelStatic<TransactionModel> = TransactionModel;
@@ -44,6 +45,29 @@ class TransactionService implements ITransactionService {
     });
 
     return transactionId;
+  }
+
+  public async findByTransactionId(transactionId: string): Promise<TransactionModel> {
+    const transaction = await this.transactionModel.findOne(
+      {
+        where: { transactionId },
+      },
+    );
+
+    if (!transaction) throw new NotFound('Account does not exist');
+
+    return transaction;
+  }
+
+  public async addCashbackRate(transactionInfo: ICashback): Promise<void> {
+    const { transactionId, cashback } = transactionInfo;
+
+    await this.findByTransactionId(transactionId);
+
+    await this.transactionModel.update(
+      { cashback },
+      { where: { transactionId } },
+    );
   }
 }
 

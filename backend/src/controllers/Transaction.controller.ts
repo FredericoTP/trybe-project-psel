@@ -26,6 +26,14 @@ class TransactionController implements ITransactionController {
 
     return res.status(200).json({ transactionId });
   }
+
+  public async addCashbackRate(req: Request, res: Response): Promise<Response> {
+    const { transactionId, cashback } = req.body;
+
+    await this.transactionService.addCashbackRate({ transactionId, cashback });
+
+    return res.status(200).json({ message: 'Cashback has been updated' });
+  }
 }
 
 export default TransactionController;

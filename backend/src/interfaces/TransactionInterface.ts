@@ -4,6 +4,8 @@ import TransactionModel from '../database/models/TransactionModel';
 interface ITransactionService {
   findByAccountId(id: number): Promise<TransactionModel[]>
   create(transactionInfo: ITransactionInfo): Promise<string>
+  findByTransactionId(transactionId: string): Promise<TransactionModel>
+  addCashbackRate(transactionInfo: ICashback): Promise<void>
 }
 
 interface ITransactionController {
@@ -27,6 +29,11 @@ interface IBodyTransaction {
   }
 }
 
+interface ICashback {
+  cashback: number;
+  transactionId: string;
+}
+
 export {
-  ITransactionService, ITransactionController, ITransactionInfo, IBodyTransaction,
+  ITransactionService, ITransactionController, ITransactionInfo, IBodyTransaction, ICashback,
 };
