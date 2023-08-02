@@ -8,7 +8,9 @@ import {
   IAccountUpdate,
 } from './AccountInterface';
 import { ILoginService, ILoginController } from './LoginInterface';
-import { ITransactionService, ITransactionController } from './TransactionInterface';
+import {
+  ITransactionService, ITransactionController, ITransactionInfo, IBodyTransaction,
+} from './TransactionInterface';
 
 export {
   JwtInterface,
@@ -23,4 +25,6 @@ export {
   IAccountUpdate,
   ITransactionService,
   ITransactionController,
+  ITransactionInfo,
+  IBodyTransaction,
 };

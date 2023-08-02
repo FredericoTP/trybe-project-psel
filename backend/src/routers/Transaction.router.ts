@@ -10,4 +10,6 @@ const transactionController = new TransactionController(transactionService);
 
 transactionRouter.get('/', validateToken, (req: Request, res: Response) => transactionController.findByAccountId(req, res));
 
+transactionRouter.post('/', validateToken, (req: Request, res: Response) => transactionController.create(req, res));
+
 export default transactionRouter;

@@ -1,7 +1,15 @@
 import {
-  loginSchema, accountSchema, cpfSchema, cnpjSchema, documentSchema, updateSchema,
+  loginSchema,
+  accountSchema,
+  cpfSchema,
+  cnpjSchema,
+  documentSchema,
+  updateSchema,
+  transactionSchema,
 } from './schemas';
-import { AccountInfo, IAccount, IAccountUpdate } from '../../interfaces';
+import {
+  AccountInfo, IAccount, IAccountUpdate, ITransactionInfo,
+} from '../../interfaces';
 import { BadRequest } from '../../utils/errors';
 
 const validateLogin = (accountInfo: AccountInfo): void => {
@@ -42,6 +50,17 @@ const validateUpdate = (accountInfo: IAccountUpdate): void => {
   if (error) throw new BadRequest(error.message);
 };
 
+const validateTransaction = (transactionInfo: ITransactionInfo): void => {
+  const { error } = transactionSchema.validate(transactionInfo);
+
+  if (error) throw new BadRequest(error.message);
+};
+
 export {
-  validateLogin, validateNewAccount, validateCpfCnpj, validateDocument, validateUpdate,
+  validateLogin,
+  validateNewAccount,
+  validateCpfCnpj,
+  validateDocument,
+  validateUpdate,
+  validateTransaction,
 };

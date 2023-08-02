@@ -1,5 +1,7 @@
 import * as Joi from 'joi';
-import { StringSchema, ObjectSchema, NumberSchema } from 'joi';
+import {
+  StringSchema, ObjectSchema, NumberSchema, DateSchema,
+} from 'joi';
 import validator from 'cpf-cnpj-validator';
 
 const JoiExtends = require('joi').extend(validator);
@@ -21,6 +23,10 @@ const passwordSchema: StringSchema = Joi.string().required().messages(customMess
 const emailSchema: StringSchema = Joi.string().email().required().messages(customMessage('email', 5, 'string'));
 
 const nameSchema: StringSchema = Joi.string().required().messages(customMessage('name', 5, 'string'));
+
+const dateSchema: DateSchema = Joi.date().iso().required().messages(customMessage('date', 5, 'string'));
+
+const valueSchema: NumberSchema = Joi.number().required().messages(customMessage('value', 5, 'number'));
 
 const cnpjSchema = JoiExtends.document().cnpj();
 
@@ -44,6 +50,19 @@ const updateSchema: ObjectSchema = Joi.object({
   email: emailSchema,
 });
 
+const transactionSchema: ObjectSchema = Joi.object({
+  id: idSchema,
+  value: valueSchema,
+  date: dateSchema,
+});
+
 export {
-  documentSchema, passwordSchema, loginSchema, accountSchema, cnpjSchema, cpfSchema, updateSchema,
+  documentSchema,
+  passwordSchema,
+  loginSchema,
+  accountSchema,
+  cnpjSchema,
+  cpfSchema,
+  updateSchema,
+  transactionSchema,
 };
