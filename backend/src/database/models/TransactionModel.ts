@@ -1,11 +1,13 @@
 import {
-  Model, INTEGER, STRING, FLOAT,
+  Model, INTEGER, STRING, FLOAT
 } from 'sequelize';
 import db from '.';
 import AccountModel from './AccountModel';
 
 class TransactionModel extends Model {
   declare id: number;
+
+  declare transactionId: number;
 
   declare accountId: string;
 
@@ -22,6 +24,10 @@ TransactionModel.init({
     primaryKey: true,
     autoIncrement: true,
     type: INTEGER,
+  },
+  transactionId: {
+    allowNull: false,
+    type: STRING,
   },
   accountId: {
     allowNull: false,
@@ -47,3 +53,5 @@ TransactionModel.init({
 });
 
 TransactionModel.belongsTo(AccountModel, { foreignKey: 'accountId', as: 'account' });
+
+export default TransactionModel;

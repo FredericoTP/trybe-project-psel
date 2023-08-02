@@ -10,6 +10,10 @@ module.exports = {
         autoIncrement: true,
         type: Sequelize.INTEGER,
       },
+      transaction_id: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
       account_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
