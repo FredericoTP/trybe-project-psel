@@ -3,9 +3,11 @@ import { Response, Request, Router } from 'express';
 import { LoginController } from '../controllers';
 import { LoginService } from '../services';
 import { validateLogin } from '../middlewares';
+import JwtToken from '../utils/auth';
 
 const loginRouter = Router();
-const loginService = new LoginService();
+const jwtToken = new JwtToken();
+const loginService = new LoginService(jwtToken);
 const loginController = new LoginController(loginService);
 
 loginRouter.post('/', validateLogin, (req: Request, res: Response) => loginController.login(req, res));
