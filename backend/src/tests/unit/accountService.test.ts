@@ -148,6 +148,12 @@ describe('AccountService', () => {
   });
 
   describe('Testing delete method', () => {
-    it('Successfully delete an account', async () => {});
+    it('Successfully delete an account', async () => {
+      const first = sinon.stub(AccountModel, 'update').resolves();
+
+      await accountService.delete(1);
+
+      sinon.assert.callCount(first, 1);
+    });
   });
 });

@@ -41,6 +41,20 @@ const updateParameters = {
   email: 'test@test.com',
 };
 
+const updateController = {
+  infoToken: {
+    id: 1,
+  },
+  name: 'Fred',
+  email: 'test@test.com',
+};
+
+const deleteController = {
+  infoToken: {
+    id: 1,
+  },
+};
+
 export {
   emptyParameter,
   invalidCpf,
@@ -50,4 +64,6 @@ export {
   returnFindOne,
   emptyUpdate,
   updateParameters,
+  updateController,
+  deleteController,
 };

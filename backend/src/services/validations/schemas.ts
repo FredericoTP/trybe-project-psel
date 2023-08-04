@@ -57,6 +57,7 @@ const transactionSchema: ObjectSchema = Joi.object({
 });
 
 export {
+  idSchema,
   documentSchema,
   passwordSchema,
   loginSchema,

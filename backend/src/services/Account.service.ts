@@ -1,7 +1,9 @@
 import { ModelStatic, Op } from 'sequelize';
 import AccountModel from '../database/models/AccountModel';
 import { IAccount, IAccountService, IAccountUpdate } from '../interfaces';
-import { validateNewAccount, validateCpfCnpj, validateUpdate } from './validations/validationInputValues';
+import {
+  validateNewAccount, validateCpfCnpj, validateUpdate, validateId,
+} from './validations/validationInputValues';
 import { Conflict, NotFound } from '../utils/errors';
 
 class AccountService implements IAccountService {
@@ -58,6 +60,8 @@ class AccountService implements IAccountService {
   }
 
   public async delete(id: number): Promise<void> {
+    validateId(id);
+
     await this.accountModel.update(
       { status: 0 },
       { where: { id } },

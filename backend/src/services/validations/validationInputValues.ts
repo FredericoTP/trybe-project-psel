@@ -1,4 +1,5 @@
 import {
+  idSchema,
   loginSchema,
   accountSchema,
   cpfSchema,
@@ -56,6 +57,12 @@ const validateTransaction = (transactionInfo: ITransactionInfo): void => {
   if (error) throw new BadRequest(error.message);
 };
 
+const validateId = (id: number): void => {
+  const { error } = idSchema.validate(id);
+
+  if (error) throw new BadRequest(error.message);
+};
+
 export {
   validateLogin,
   validateNewAccount,
@@ -63,4 +70,5 @@ export {
   validateDocument,
   validateUpdate,
   validateTransaction,
+  validateId,
 };
