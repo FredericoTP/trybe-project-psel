@@ -17,7 +17,7 @@ class TransactionController implements ITransactionController {
     const info: IBodyTransaction = req.body;
 
     const toCreate = {
-      id: info.infoToken.id,
+      document: info.document,
       value: Number(info.value.toFixed(2)),
       date: info.date,
     };

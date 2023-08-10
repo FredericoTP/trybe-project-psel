@@ -19,6 +19,7 @@ const validLogin = {
     id: 1,
     name: 'Fred',
     email: 'test@test.com',
+    password: '123456',
     status: 1,
   },
 };

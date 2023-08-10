@@ -4,7 +4,6 @@ import {
   accountSchema,
   cpfSchema,
   cnpjSchema,
-  documentSchema,
   updateSchema,
   transactionSchema,
 } from './schemas';
@@ -39,12 +38,6 @@ const validateCpfCnpj = (document: string): void => {
   }
 };
 
-const validateDocument = (document: string): void => {
-  const { error } = documentSchema.validate(document);
-
-  if (error) throw new BadRequest(error.message);
-};
-
 const validateUpdate = (accountInfo: IAccountUpdate): void => {
   const { error } = updateSchema.validate(accountInfo);
 
@@ -67,7 +60,6 @@ export {
   validateLogin,
   validateNewAccount,
   validateCpfCnpj,
-  validateDocument,
   validateUpdate,
   validateTransaction,
   validateId,

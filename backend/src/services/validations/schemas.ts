@@ -51,7 +51,7 @@ const updateSchema: ObjectSchema = Joi.object({
 });
 
 const transactionSchema: ObjectSchema = Joi.object({
-  id: idSchema,
+  document: documentSchema,
   value: valueSchema,
   date: dateSchema,
 });

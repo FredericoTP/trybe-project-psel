@@ -38,9 +38,24 @@ describe('LoginService', () => {
       expect(error.message).to.be.equal('document cannot be an empty field');
     });
 
-    it('Should throw an error when document or password is wrong', async () => {
+    it('Should throw an error when document is wrong', async () => {
       let error = new Error();
       sinon.stub(AccountModel, 'findOne').resolves(null);
+
+      try {
+        await loginService.login(infoLogin);
+      } catch (err) {
+        error = err as Error;
+      }
+
+      expect(error).to.be.instanceOf(Unauthorized);
+      expect(error.message).to.be.equal('Invalid document or password');
+    });
+
+    it('Should throw an error when password is wrong', async () => {
+      let error = new Error();
+      sinon.stub(AccountModel, 'findOne').resolves(validLogin as AccountModel);
+      sinon.stub(bcrypt, 'compareSync').returns(false);
 
       try {
         await loginService.login(infoLogin);
