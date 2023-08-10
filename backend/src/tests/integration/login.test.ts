@@ -3,6 +3,7 @@ import chai = require('chai');
 import * as sinon from 'sinon';
 import chaiHttp = require('chai-http');
 import jwt = require('jsonwebtoken');
+import bcrypt = require('bcryptjs');
 import app from '../../app';
 import { loginInfo, returnFindOne, returnFindOneDel } from './mocks/loginMocks';
 import AccountModel from '../../database/models/AccountModel';
@@ -53,6 +54,7 @@ describe('Login Router', () => {
     describe('Call account with status 0', () => {
       it('Should return 401 and a message', async () => {
         sinon.stub(AccountModel, 'findOne').resolves(returnFindOneDel as AccountModel);
+        sinon.stub(bcrypt, 'compareSync').resolves(true);
 
         const response = await chai.request(app).post('/login').send(loginInfo);
 
@@ -64,6 +66,7 @@ describe('Login Router', () => {
     describe('Calls the account correctly', () => {
       it('Should return 200 and a token', async () => {
         sinon.stub(AccountModel, 'findOne').resolves(returnFindOne as AccountModel);
+        sinon.stub(bcrypt, 'compareSync').resolves(true);
         sinon.stub(jwt, 'sign').callsFake(() => 'abc');
 
         const response = await chai.request(app).post('/login').send(loginInfo);

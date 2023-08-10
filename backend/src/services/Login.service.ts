@@ -1,4 +1,5 @@
-import { ModelStatic, Op } from 'sequelize';
+import bcrypt = require('bcryptjs');
+import { ModelStatic } from 'sequelize';
 import AccountModel from '../database/models/AccountModel';
 import { AccountInfo, ILoginService } from '../interfaces';
 import JwtToken from '../utils/auth';
@@ -17,13 +18,15 @@ class LoginService implements ILoginService {
 
     const account = await this.accountModel.findOne(
       {
-        where: {
-          [Op.and]: [{ password }, { document }],
-        },
+        where: { document },
       },
     );
 
     if (!account) throw new Unauthorized('Invalid document or password');
+
+    const isValid = bcrypt.compareSync(password, account.password);
+
+    if (!isValid) throw new Unauthorized('Invalid document or password');
 
     if (!account.dataValues.status) throw new Unauthorized('Invalid document or password');
 

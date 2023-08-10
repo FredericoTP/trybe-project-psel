@@ -1,3 +1,4 @@
+import bcrypt = require('bcryptjs');
 import { ModelStatic, Op } from 'sequelize';
 import AccountModel from '../database/models/AccountModel';
 import { IAccount, IAccountService, IAccountUpdate } from '../interfaces';
@@ -27,8 +28,11 @@ class AccountService implements IAccountService {
 
     if (checkAccount) throw new Conflict('Account already exists');
 
+    const SALT_ROUNDS = Number(process.env.BCRYPT_SALT_ROUNDS) || 10;
+    const hash = bcrypt.hashSync(password, SALT_ROUNDS);
+
     const account = await this.accountModel.create({
-      name, password, email, document, status: 1,
+      name, password: hash, email, document, status: 1,
     });
 
     return account;

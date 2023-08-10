@@ -3,6 +3,7 @@ import chai = require('chai');
 import * as sinon from 'sinon';
 import chaiHttp = require('chai-http');
 import jwt = require('jsonwebtoken');
+import bcrypt = require('bcryptjs');
 import app from '../../app';
 import AccountModel from '../../database/models/AccountModel';
 import {
@@ -90,6 +91,7 @@ describe('Account Router', () => {
     describe('Successfully creates an account', () => {
       it('Should return 200 and account', async () => {
         sinon.stub(AccountModel, 'findOne').resolves(null);
+        sinon.stub(bcrypt, 'hashSync').resolves('123456');
         sinon.stub(AccountModel, 'create').resolves(validDocument as AccountModel);
 
         const response = await chai.request(app).post('/account').send(validDocument);

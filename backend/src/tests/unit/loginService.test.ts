@@ -2,6 +2,7 @@
 import * as chai from 'chai';
 import * as sinon from 'sinon';
 import sinonChai from 'sinon-chai';
+import bcrypt = require('bcryptjs');
 import AccountModel from '../../database/models/AccountModel';
 import { LoginService } from '../../services';
 import {
@@ -54,6 +55,7 @@ describe('LoginService', () => {
     it('Should throw an error when account status is 0', async () => {
       let error = new Error();
       sinon.stub(AccountModel, 'findOne').resolves(invalidLogin as AccountModel);
+      sinon.stub(bcrypt, 'compareSync').resolves(true);
 
       try {
         await loginService.login(infoLogin);
@@ -69,6 +71,7 @@ describe('LoginService', () => {
       const jwtToken = new JwtToken();
       loginService = new LoginService(jwtToken);
       sinon.stub(AccountModel, 'findOne').resolves(validLogin as AccountModel);
+      sinon.stub(bcrypt, 'compareSync').resolves(true);
       sinon.stub(jwtToken, 'generateToken').callsFake(() => 'abc');
 
       const token = await loginService.login(infoLogin);
