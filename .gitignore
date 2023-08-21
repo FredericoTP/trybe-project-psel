@@ -1,0 +1,5 @@
+*/node_modules
+.env
+.db_env
+backend/dist
+*/.nyc_output
